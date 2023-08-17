@@ -105,8 +105,6 @@
 				<configuration>
 					<repository>${project.artifactId}</repository>
 					<tag>${project.version}</tag>
-					<useMavenSettingsForAuth>true</useMavenSettingsForAuth>
-					<!-- <noCache>true</noCache> -->
 					<force>true</force>
 					<buildArgs>
 						<JAR_FILE>./target/${project.build.finalName}.jar</JAR_FILE>

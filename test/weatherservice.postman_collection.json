@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "6da4496e-05ba-489b-85e8-fb1b89b89a94",
+		"name": "Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3467691"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"item": []
+		},
+		{
+			"name": "Query",
+			"item": [
+				{
+					"name": "query",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const  moment = require('moment');\r",
+									"\r",
+									"const today = moment();\r",
+									"pm.globals.set(\"today\", today.format('YYYY-MM-DD'));\r",
+									"\r",
+									"var yesterday = moment().subtract(1, 'days');\r",
+									"pm.globals.set(\"yesterday\", yesterday.format('YYYY-MM-DD'));\r",
+									"\r",
+									"//pm.environment.set('now', moment().format((\"YYYY-MM-DD\")));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/metric/temperature?from={{yesterday}}&to={{today}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"metric",
+								"temperature"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "{{yesterday}}"
+								},
+								{
+									"key": "to",
+									"value": "{{today}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
