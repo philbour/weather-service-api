@@ -1,11 +1,9 @@
 package org.philbour.weatherservice.model;
 
-import org.springframework.jmx.support.MetricType;
+public interface Metric {
 
-public class Metric {
+    MetricType getType();
 
-    private String id;
-    private MetricType metricType;
-    private String description;
+    String getDescription();
 
 }

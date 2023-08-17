@@ -1,31 +1,29 @@
-package org.philbour.weatherservice.model;
+package org.philbour.weatherservice.model.resource;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.philbour.weatherservice.model.MetricValue;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SensorReading {
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 
-    private final String id;
+public class SensorReadingResource {
+
+    @NotNull
     private final String sensorId;
+    @NotNull
+    @PastOrPresent(message = "Date cannot be in the future")
     private final LocalDateTime timeOfReading;
+    @NotEmpty
     private final List<MetricValue> metrics;
 
-    @JsonCreator
-    public SensorReading(@JsonProperty("id") String id, @JsonProperty("sensorId") String sensorId,
-            @JsonProperty("timeOfReading") LocalDateTime timeOfReading,
-            @JsonProperty("metrics") List<MetricValue> metrics) {
-        this.id = id;
+    public SensorReadingResource(String sensorId, LocalDateTime timeOfReading, List<MetricValue> metrics) {
         this.sensorId = sensorId;
         this.timeOfReading = timeOfReading;
         this.metrics = new ArrayList<>(metrics);
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getSensorId() {
