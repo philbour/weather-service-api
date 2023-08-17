@@ -20,7 +20,7 @@ public class BasicAuthWebSecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeRequests()
-                .antMatchers("/public")
+                .antMatchers("/docs/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

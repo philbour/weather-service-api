@@ -5,3 +5,7 @@ spring:
 logging:
   level:
     org.philbour: DEBUG
+    
+springdoc:
+  swagger-ui.path: /docs/swagger-ui
+  api-docs.path: /docs
