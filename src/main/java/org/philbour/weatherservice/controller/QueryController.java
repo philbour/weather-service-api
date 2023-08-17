@@ -1,5 +1,7 @@
 package org.philbour.weatherservice.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.validation.annotation.Validated;
@@ -17,10 +19,15 @@ import javax.validation.constraints.PastOrPresent;
 @Validated
 public class QueryController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(QueryController.class);
+
     @GetMapping("/metric/{type}")
     int metricAverage(@PathVariable("type") @NotBlank String type,
             @RequestParam("from") @DateTimeFormat(iso = ISO.DATE) @PastOrPresent(message = "Date must be before Today") LocalDate from,
             @RequestParam("to") @PastOrPresent(message = "Date must be on or before Today") @DateTimeFormat(iso = ISO.DATE) LocalDate to) {
+        // TODO query DB but check cache first...
+
+        LOG.debug("query request received for {} metric with date period of {} to {}", type, from, to);
         return 0;
     }
 
