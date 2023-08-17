@@ -103,7 +103,7 @@
 				<artifactId>dockerfile-maven-plugin</artifactId>
 				<version>1.4.13</version>
 				<configuration>
-					<repository>${docker.image.prefix}/${project.artifactId}</repository>
+					<repository>${project.artifactId}</repository>
 					<tag>${project.version}</tag>
 					<useMavenSettingsForAuth>true</useMavenSettingsForAuth>
 					<!-- <noCache>true</noCache> -->
