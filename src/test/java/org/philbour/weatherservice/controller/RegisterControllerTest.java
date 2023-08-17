@@ -11,6 +11,7 @@ import org.philbour.weatherservice.model.MetricValue;
 import org.philbour.weatherservice.model.SensorReading;
 import org.philbour.weatherservice.model.resource.SensorReadingResource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebMvcTest(controllers = RegisterController.class)
+@AutoConfigureMockMvc(addFilters = false)
 class RegisterControllerTest {
 
     @Autowired
@@ -66,6 +68,9 @@ class RegisterControllerTest {
     private SensorReadingResource createReading(LocalDateTime readingDate) {
         List<MetricValue> metrics = new ArrayList<>();
         metrics.add(new MetricValue("tmp", "22"));
+        metrics.add(new MetricValue("wnd", "15"));
+        metrics.add(new MetricValue("hum", "64"));
+        metrics.add(new MetricValue("air", "1016"));
 
         return new SensorReadingResource("1", readingDate, metrics);
     }
