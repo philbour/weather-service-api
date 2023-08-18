@@ -1,2 +1,6 @@
 *.yaml linguist-detectable=true
 *.yaml linguist-language=YAML
+*.md linguist-detectable=true
+*.md linguist-language=Markdown
+*.json linguist-detectable=true
+*.json linguist-language=JSON
