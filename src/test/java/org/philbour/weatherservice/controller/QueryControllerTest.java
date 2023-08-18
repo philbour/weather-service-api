@@ -22,7 +22,8 @@ class QueryControllerTest {
 
     @Test
     void metricAverage_ValidRequest_ResponseReturned() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/metric/{type}", "temperature").queryParam("from", LocalDate.now()
+        MvcResult mvcResult = mockMvc.perform(get("/query/metric/{type}", "temperature").queryParam("from", LocalDate
+                .now()
                 .toString()).queryParam("to", LocalDate.now().toString())).andExpect(status().isOk()).andReturn();
 
         String actualResponseBody = mvcResult.getResponse().getContentAsString();
@@ -32,7 +33,7 @@ class QueryControllerTest {
 
     @Test
     void metricAverage_ToDateInFuture_ReturnsBadRequest() throws Exception {
-        mockMvc.perform(get("/metric/{type}", "temperature").queryParam("from", LocalDate.now().toString())
+        mockMvc.perform(get("/query/metric/{type}", "temperature").queryParam("from", LocalDate.now().toString())
                 .queryParam("to", LocalDate.now().plusYears(1).toString())).andExpect(status().isBadRequest());
     }
 

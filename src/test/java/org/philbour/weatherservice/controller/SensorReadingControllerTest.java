@@ -25,9 +25,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebMvcTest(controllers = RegisterController.class)
+@WebMvcTest(controllers = SensorReadingController.class)
 @AutoConfigureMockMvc(addFilters = false)
-class RegisterControllerTest {
+class SensorReadingControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -44,7 +44,7 @@ class RegisterControllerTest {
     void register_ValidReading_ResourceSaved() throws Exception {
         SensorReadingResource readingResource = createReading();
 
-        MvcResult mvcResult = mockMvc.perform(post("/register").contentType("application/json")
+        MvcResult mvcResult = mockMvc.perform(post("/reading/register").contentType("application/json")
                 .content(objectMapper.writeValueAsString(readingResource))).andExpect(status().isCreated()).andReturn();
 
         SensorReading reading = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
@@ -57,7 +57,7 @@ class RegisterControllerTest {
     void register_DateInFuture_ReturnsBadRequest() throws Exception {
         SensorReadingResource readingResource = createReading(LocalDateTime.now().plusHours(1));
 
-        mockMvc.perform(post("/register").contentType("application/json")
+        mockMvc.perform(post("/reading/register").contentType("application/json")
                 .content(objectMapper.writeValueAsString(readingResource))).andExpect(status().isBadRequest());
     }
 
