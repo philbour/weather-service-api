@@ -153,4 +153,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+### Custom ###
+# location of h2 database
+data/
+
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,eclipse,git,windows
