@@ -20,7 +20,6 @@ import javax.validation.constraints.PastOrPresent;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @Validated
@@ -32,10 +31,10 @@ public class QueryController {
     @GetMapping("/metric/{type}")
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @Operation(summary = "Gets the average", description = "Gets the average value for a specific metric")
-    @ApiResponses({@ApiResponse(responseCode = "201", description = "ok"),
-            @ApiResponse(responseCode = "400", description = "bad request"),
-            @ApiResponse(responseCode = "401", description = "forbidden"),
-            @ApiResponse(responseCode = "404", description = "not found")})
+    @ApiResponse(responseCode = "201", description = "ok")
+    @ApiResponse(responseCode = "400", description = "bad request")
+    @ApiResponse(responseCode = "401", description = "forbidden")
+    @ApiResponse(responseCode = "404", description = "not found")
     int metricAverage(
             @PathVariable("type") @Parameter(description = "The type of metric to query for") @NotBlank String type,
             @RequestParam("from") @DateTimeFormat(iso = ISO.DATE) @PastOrPresent(message = "Date must be before Today") LocalDate from,

@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.validation.constraints.NotNull;
 
 @Service
 public class SensorService {
@@ -19,13 +22,22 @@ public class SensorService {
         this.sensorRepository = sensorRepository;
     }
 
-    public Sensor register(Sensor sensor) {
+    public Sensor register(@NotNull Sensor sensor) {
         LOG.debug("Saving new sensor");
         return sensorRepository.save(sensor);
     }
 
     public List<Sensor> getAll() {
         return sensorRepository.findAll();
+    }
+
+    public Optional<Sensor> getById(@NotNull Long id) {
+        return sensorRepository.findById(id);
+    }
+
+    public void deleteById(@NotNull Long id) {
+        Sensor sensor = sensorRepository.getReferenceById(id);
+        sensorRepository.delete(sensor);
     }
 
 }
