@@ -21,7 +21,7 @@ public class BasicAuthWebSecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeRequests()
-                .antMatchers("/docs/**")
+                .antMatchers("/docs/**", "/h2-console/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -30,6 +30,10 @@ public class BasicAuthWebSecurityConfiguration {
                 .authenticationEntryPoint(authenticationEntryPoint)
                 .and()
                 .csrf(AbstractHttpConfigurer::disable)
+                .headers()
+                .frameOptions()
+                .disable()
+                .and()
                 .build();
     }
 
