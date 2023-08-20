@@ -6,20 +6,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class MetricValue {
 
     private final String metricId;
-    private final String value;
+    private final int metricValue; // https://stackoverflow.com/questions/2224503/how-to-map-an-entity-field-whose-name-is-a-reserved-word-in-jpa
 
     @JsonCreator
-    public MetricValue(@JsonProperty("metricId") String metricId, @JsonProperty("value") String value) {
+    public MetricValue(@JsonProperty("metricId") String metricId, @JsonProperty("metricValue") int metricValue) {
         this.metricId = metricId;
-        this.value = value;
+        this.metricValue = metricValue;
     }
 
     public String getMetricId() {
         return metricId;
     }
 
-    public String getValue() {
-        return value;
+    public int getMetricValue() {
+        return metricValue;
     }
 
 }
