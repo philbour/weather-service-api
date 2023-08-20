@@ -13,20 +13,20 @@ import javax.validation.constraints.PastOrPresent;
 public class SensorReadingResource {
 
     @NotNull
-    private final String sensorId;
+    private final Long sensorId;
     @NotNull
     @PastOrPresent(message = "Date cannot be in the future")
     private final LocalDateTime timeOfReading;
     @NotEmpty
     private final List<MetricValue> metrics;
 
-    public SensorReadingResource(String sensorId, LocalDateTime timeOfReading, List<MetricValue> metrics) {
+    public SensorReadingResource(Long sensorId, LocalDateTime timeOfReading, List<MetricValue> metrics) {
         this.sensorId = sensorId;
         this.timeOfReading = timeOfReading;
         this.metrics = new ArrayList<>(metrics);
     }
 
-    public String getSensorId() {
+    public Long getSensorId() {
         return sensorId;
     }
 

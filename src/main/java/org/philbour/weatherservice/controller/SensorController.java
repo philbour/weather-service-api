@@ -1,6 +1,7 @@
 package org.philbour.weatherservice.controller;
 
 import org.philbour.weatherservice.model.Sensor;
+import org.philbour.weatherservice.model.dao.SensorDao;
 import org.philbour.weatherservice.model.resource.SensorResource;
 import org.philbour.weatherservice.service.SensorService;
 import org.slf4j.Logger;
@@ -37,21 +38,21 @@ public class SensorController {
     private SensorService sensorService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Sensor> register(@Valid @RequestBody SensorResource sensorResource) {
+    ResponseEntity<SensorDao> register(@Valid @RequestBody SensorResource sensorResource) {
         LOG.debug("register request received for new sensor at location {}", sensorResource.getLocation());
-        Sensor sensor = sensorService.register(new Sensor(sensorResource.getLocation()));
+        SensorDao sensor = sensorService.register(new Sensor(sensorResource.getLocation()));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(sensor.getId()).toUri();
         return ResponseEntity.created(uri).body(sensor);
     }
 
     @GetMapping
-    ResponseEntity<List<Sensor>> getAll() {
+    ResponseEntity<List<SensorDao>> getAll() {
         LOG.debug("get request received for all sensors");
         return ResponseEntity.ok(sensorService.getAll());
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<Sensor> getById(@PathVariable("id") @NotNull Long id) {
+    ResponseEntity<SensorDao> getById(@PathVariable("id") @NotNull Long id) {
         LOG.debug("get request received for sensor {}", id);
         return ResponseEntity.of(sensorService.getById(id));
     }

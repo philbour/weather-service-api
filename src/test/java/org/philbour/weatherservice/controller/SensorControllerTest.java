@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.philbour.weatherservice.model.Sensor;
+import org.philbour.weatherservice.model.dao.SensorDao;
 import org.philbour.weatherservice.model.resource.SensorResource;
 import org.philbour.weatherservice.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ class SensorControllerTest {
     @Test
     void register_ValidSensor_ResourceSaved() throws Exception {
         SensorResource sensorResource = new SensorResource(LOCATION_NAME);
-        when(sensorService.register(isA(Sensor.class))).thenReturn(new Sensor(1L, LOCATION_NAME));
+        when(sensorService.register(isA(Sensor.class))).thenReturn(new SensorDao(1L, LOCATION_NAME));
 
         MvcResult mvcResult = mockMvc.perform(post("/sensor").contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(sensorResource))).andExpect(status().isCreated()).andReturn();
@@ -102,7 +103,7 @@ class SensorControllerTest {
 
     @Test
     void getById_SensorFound_ReturnsSensor() throws Exception {
-        when(sensorService.getById(1L)).thenReturn(Optional.of(new Sensor(1L, LOCATION_NAME)));
+        when(sensorService.getById(1L)).thenReturn(Optional.of(new SensorDao(1L, LOCATION_NAME)));
 
         MvcResult mvcResult = mockMvc.perform(get("/sensor/{id}", 1L)).andExpect(status().isOk()).andReturn();
 
@@ -125,14 +126,14 @@ class SensorControllerTest {
                 .andExpect(content().string(StringUtils.EMPTY));
     }
 
-    private List<Sensor> createSensors(int numToCreate) {
-        List<Sensor> sensors = new ArrayList<>();
+    private List<SensorDao> createSensors(int numToCreate) {
+        List<SensorDao> sensors = new ArrayList<>();
         IntStream.range(0, numToCreate).forEach(num -> sensors.add(this.createSensor(num)));
         return sensors;
     }
 
-    private Sensor createSensor(int i) {
-        return new Sensor((long)i, LOCATION_NAME.concat(" ") + i);
+    private SensorDao createSensor(int i) {
+        return new SensorDao((long)i, LOCATION_NAME.concat(" ") + i);
     }
 
 }

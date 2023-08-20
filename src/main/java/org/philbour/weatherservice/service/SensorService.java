@@ -1,6 +1,7 @@
 package org.philbour.weatherservice.service;
 
 import org.philbour.weatherservice.model.Sensor;
+import org.philbour.weatherservice.model.dao.SensorDao;
 import org.philbour.weatherservice.repository.SensorRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,21 +23,21 @@ public class SensorService {
         this.sensorRepository = sensorRepository;
     }
 
-    public Sensor register(@NotNull Sensor sensor) {
+    public SensorDao register(@NotNull Sensor sensor) {
         LOG.debug("Saving new sensor");
-        return sensorRepository.save(sensor);
+        return sensorRepository.save(new SensorDao(sensor));
     }
 
-    public List<Sensor> getAll() {
+    public List<SensorDao> getAll() {
         return sensorRepository.findAll();
     }
 
-    public Optional<Sensor> getById(@NotNull Long id) {
+    public Optional<SensorDao> getById(@NotNull Long id) {
         return sensorRepository.findById(id);
     }
 
     public void deleteById(@NotNull Long id) {
-        Sensor sensor = sensorRepository.getReferenceById(id);
+        SensorDao sensor = sensorRepository.getReferenceById(id);
         sensorRepository.delete(sensor);
     }
 

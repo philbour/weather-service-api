@@ -1,5 +1,7 @@
 package org.philbour.weatherservice.model;
 
+import org.philbour.weatherservice.model.resource.SensorReadingResource;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,13 +11,13 @@ import java.util.List;
 
 public class SensorReading {
 
-    private final String id;
-    private final String sensorId;
+    private Long id;
+    private final Long sensorId;
     private final LocalDateTime timeOfReading;
     private final List<MetricValue> metrics;
 
     @JsonCreator
-    public SensorReading(@JsonProperty("id") String id, @JsonProperty("sensorId") String sensorId,
+    public SensorReading(@JsonProperty("id") Long id, @JsonProperty("sensorId") Long sensorId,
             @JsonProperty("timeOfReading") LocalDateTime timeOfReading,
             @JsonProperty("metrics") List<MetricValue> metrics) {
         this.id = id;
@@ -24,11 +26,23 @@ public class SensorReading {
         this.metrics = new ArrayList<>(metrics);
     }
 
-    public String getId() {
+    public SensorReading(SensorReadingResource reading) {
+        this.sensorId = reading.getSensorId();
+        this.timeOfReading = reading.getTimeOfReading();
+        this.metrics = new ArrayList<>(reading.getMetrics());
+    }
+
+    public SensorReading(Sensor sensor, LocalDateTime timeOfReading, List<MetricValue> metrics) {
+        this.sensorId = sensor.getId();
+        this.timeOfReading = timeOfReading;
+        this.metrics = metrics;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public String getSensorId() {
+    public Long getSensorId() {
         return sensorId;
     }
 

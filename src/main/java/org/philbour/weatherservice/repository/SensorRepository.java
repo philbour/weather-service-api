@@ -1,8 +1,8 @@
 package org.philbour.weatherservice.repository;
 
-import org.philbour.weatherservice.model.Sensor;
+import org.philbour.weatherservice.model.dao.SensorDao;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SensorRepository extends JpaRepository<Sensor, Long> {
+public interface SensorRepository extends JpaRepository<SensorDao, Long> {
 
 }
