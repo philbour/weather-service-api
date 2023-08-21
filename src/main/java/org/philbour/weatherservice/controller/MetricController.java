@@ -25,6 +25,10 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 @RestController
 @Validated
 @RequestMapping(value = "/metric", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -37,29 +41,49 @@ public class MetricController {
     private MetricService metricService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Metric> register(@Valid @RequestBody MetricResource metricResource) {
-        LOG.debug("register request received for new metric for type {}", metricResource.getMetricType());
+    @Operation(summary = "Save a new metric", description = "Saves a new metric from the data in the provided metricResource")
+    @ApiResponse(responseCode = "201", description = "request was successful")
+    @ApiResponse(responseCode = "400", description = "bad request")
+    @ApiResponse(responseCode = "401", description = "forbidden")
+    ResponseEntity<Metric> register(
+            @Valid @RequestBody @Parameter(description = "The data to create the metric from") MetricResource metricResource) {
+        LOG.debug("Register request received for new metric for type {}", metricResource.getMetricType());
         Metric metric = metricService.register(metricResource);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(metric.getId()).toUri();
         return ResponseEntity.created(uri).body(metric);
     }
 
     @GetMapping
+    @Operation(summary = "Get all metrics", description = "Gets all the current metrics")
+    @ApiResponse(responseCode = "200", description = "request was successful")
+    @ApiResponse(responseCode = "400", description = "bad request")
+    @ApiResponse(responseCode = "401", description = "forbidden")
     ResponseEntity<List<Metric>> getAll() {
-        LOG.debug("get request received for all metrics");
+        LOG.debug("Get request received for all metrics");
         return ResponseEntity.ok(metricService.getAll());
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<Metric> getById(@PathVariable("id") @NotNull Long id) {
-        LOG.debug("get request received for metric {}", id);
+    @Operation(summary = "Get a metric", description = "Gets a specific metric")
+    @ApiResponse(responseCode = "200", description = "request was successful")
+    @ApiResponse(responseCode = "400", description = "bad request")
+    @ApiResponse(responseCode = "401", description = "forbidden")
+    @ApiResponse(responseCode = "404", description = "not found")
+    ResponseEntity<Metric> getById(
+            @PathVariable("id") @Parameter(description = "The id of the metric") @NotNull Long id) {
+        LOG.debug("Get request received for metric {}", id);
         return ResponseEntity.of(metricService.getById(id));
     }
 
     @DeleteMapping("/{id}")
     @Secured({"ROLE_ADMIN"})
-    ResponseEntity<Metric> deleteById(@PathVariable("id") @NotNull Long id) {
-        LOG.debug("delete request received for metric {}", id);
+    @Operation(summary = "Delete a metric", description = "Deletes a specific metric")
+    @ApiResponse(responseCode = "204", description = "request was successful")
+    @ApiResponse(responseCode = "400", description = "bad request")
+    @ApiResponse(responseCode = "401", description = "forbidden")
+    ResponseEntity<Metric> deleteById(
+            @PathVariable("id") @Parameter(description = "The id of the metric") @NotNull Long id) {
+        LOG.debug("Delete request received for metric {}", id);
         metricService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

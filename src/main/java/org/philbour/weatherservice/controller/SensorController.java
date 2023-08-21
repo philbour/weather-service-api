@@ -25,6 +25,10 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 @RestController
 @Validated
 @RequestMapping(value = "/sensor", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -37,29 +41,49 @@ public class SensorController {
     private SensorService sensorService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Sensor> register(@Valid @RequestBody SensorResource sensorResource) {
-        LOG.debug("register request received for new sensor at location {}", sensorResource.getLocation());
+    @Operation(summary = "Save a new sensor", description = "Saves a new sensor from the data in the provided sensorResource")
+    @ApiResponse(responseCode = "201", description = "request was successful")
+    @ApiResponse(responseCode = "400", description = "bad request")
+    @ApiResponse(responseCode = "401", description = "forbidden")
+    ResponseEntity<Sensor> register(
+            @Valid @RequestBody @Parameter(description = "The data to create the sensor from") SensorResource sensorResource) {
+        LOG.debug("Register request received for new sensor at location {}", sensorResource.getLocation());
         Sensor sensor = sensorService.register(sensorResource);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(sensor.getId()).toUri();
         return ResponseEntity.created(uri).body(sensor);
     }
 
     @GetMapping
+    @Operation(summary = "Get all sensors", description = "Gets all the current sensors")
+    @ApiResponse(responseCode = "200", description = "request was successful")
+    @ApiResponse(responseCode = "400", description = "bad request")
+    @ApiResponse(responseCode = "401", description = "forbidden")
     ResponseEntity<List<Sensor>> getAll() {
-        LOG.debug("get request received for all sensors");
+        LOG.debug("Get request received for all sensors");
         return ResponseEntity.ok(sensorService.getAll());
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<Sensor> getById(@PathVariable("id") @NotNull Long id) {
-        LOG.debug("get request received for sensor {}", id);
+    @Operation(summary = "Get a sensor", description = "Gets a specific sensor")
+    @ApiResponse(responseCode = "200", description = "request was successful")
+    @ApiResponse(responseCode = "400", description = "bad request")
+    @ApiResponse(responseCode = "401", description = "forbidden")
+    @ApiResponse(responseCode = "404", description = "not found")
+    ResponseEntity<Sensor> getById(
+            @PathVariable("id") @Parameter(description = "The id of the sensor") @NotNull Long id) {
+        LOG.debug("Get request received for sensor {}", id);
         return ResponseEntity.of(sensorService.getById(id));
     }
 
     @DeleteMapping("/{id}")
     @Secured({"ROLE_ADMIN"})
-    ResponseEntity<Sensor> deleteById(@PathVariable("id") @NotNull Long id) {
-        LOG.debug("delete request received for sensor {}", id);
+    @Operation(summary = "Delete a sensor", description = "Deletes a specific sensor")
+    @ApiResponse(responseCode = "204", description = "request was successful")
+    @ApiResponse(responseCode = "400", description = "bad request")
+    @ApiResponse(responseCode = "401", description = "forbidden")
+    ResponseEntity<Sensor> deleteById(
+            @PathVariable("id") @Parameter(description = "The id of the metric") @NotNull Long id) {
+        LOG.debug("Delete request received for sensor {}", id);
         sensorService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

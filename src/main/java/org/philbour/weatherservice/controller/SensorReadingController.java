@@ -29,6 +29,10 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 @RestController
 @Validated
 @RequestMapping(value = "/reading", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -41,8 +45,13 @@ public class SensorReadingController {
     private SensorReadingService sensorReadingService;
 
     @PostMapping
-    ResponseEntity<SensorReading> register(@Valid @RequestBody SensorReadingResource reading) {
-        LOG.debug("register request received for sensor {} reading", reading.getSensorId());
+    @Operation(summary = "Save a new sensor reading", description = "Saves a new sensor reading from the data in the provided sensorResource")
+    @ApiResponse(responseCode = "201", description = "request was successful")
+    @ApiResponse(responseCode = "400", description = "bad request")
+    @ApiResponse(responseCode = "401", description = "forbidden")
+    ResponseEntity<SensorReading> register(
+            @Valid @RequestBody @Parameter(description = "The data to create the sensor reading from") SensorReadingResource reading) {
+        LOG.debug("Register request received for sensor {} reading", reading.getSensorId());
         SensorReading sensorReading = sensorReadingService.register(reading);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -52,39 +61,67 @@ public class SensorReadingController {
     }
 
     @GetMapping
+    @Operation(summary = "Get all sensor readings", description = "Gets all the current sensor readings")
+    @ApiResponse(responseCode = "200", description = "request was successful")
+    @ApiResponse(responseCode = "400", description = "bad request")
+    @ApiResponse(responseCode = "401", description = "forbidden")
     ResponseEntity<List<SensorReading>> getAll() {
-        LOG.debug("get request received for all sensor readings");
+        LOG.debug("Get request received for all sensor readings");
         return ResponseEntity.ok(sensorReadingService.getAll());
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<SensorReading> getById(@PathVariable("id") @NotNull Long id) {
-        LOG.debug("get request received for sensor reading {}", id);
+    @Operation(summary = "Get a sensor reading", description = "Gets a specific sensor reading")
+    @ApiResponse(responseCode = "200", description = "request was successful")
+    @ApiResponse(responseCode = "400", description = "bad request")
+    @ApiResponse(responseCode = "401", description = "forbidden")
+    @ApiResponse(responseCode = "404", description = "not found")
+    ResponseEntity<SensorReading> getById(
+            @PathVariable("id") @Parameter(description = "The id of the sensor reading") @NotNull Long id) {
+        LOG.debug("Get request received for sensor reading {}", id);
         return ResponseEntity.of(sensorReadingService.getById(id));
     }
 
     @GetMapping("/sensor/{id}/metric/{type}")
-    ResponseEntity<Integer> getSensorValueByMetric(@PathVariable("id") Long id, @PathVariable("type") String metricType,
-            @RequestParam("queryType") String queryType,
-            @RequestParam("from") @DateTimeFormat(iso = ISO.DATE) LocalDate from,
-            @RequestParam("to") @DateTimeFormat(iso = ISO.DATE) LocalDate to) {
-        LOG.debug("get request received for {} {} metric value for sensor {}", queryType, metricType, id);
+    @Operation(summary = "Get average metric sensor value", description = "Gets the average value of a metric for a specific sensor")
+    @ApiResponse(responseCode = "200", description = "request was successful")
+    @ApiResponse(responseCode = "400", description = "bad request")
+    @ApiResponse(responseCode = "401", description = "forbidden")
+    @ApiResponse(responseCode = "404", description = "not found")
+    ResponseEntity<Integer> getSensorValueByMetric(
+            @PathVariable("id") @Parameter(description = "The id of the sensor") @NotNull Long id,
+            @PathVariable("type") @Parameter(description = "The metric type") @NotNull String metricType,
+            @RequestParam("queryType") @Parameter(description = "The query type") @NotNull String queryType,
+            @RequestParam("from") @Parameter(description = "Start of date range") @NotNull @DateTimeFormat(iso = ISO.DATE) LocalDate from,
+            @RequestParam("to") @Parameter(description = "End of date range") @NotNull @DateTimeFormat(iso = ISO.DATE) LocalDate to) {
+        LOG.debug("Get request received for {} {} metric value for sensor {}", queryType, metricType, id);
         return ResponseEntity.ok(sensorReadingService.getMetricAverageBySensorId(id, metricType, from, to));
     }
 
     @GetMapping("/sensor/metric/{type}")
-    ResponseEntity<Integer> getValueByMetric(@PathVariable("type") String metricType,
-            @RequestParam("queryType") String queryType,
-            @RequestParam("from") @DateTimeFormat(iso = ISO.DATE) LocalDate from,
-            @RequestParam("to") @DateTimeFormat(iso = ISO.DATE) LocalDate to) {
-        LOG.debug("get request received for {} {} for all sensors", queryType, metricType);
+    @Operation(summary = "Get average metric value", description = "Gets the average value of a metric for across all sensors")
+    @ApiResponse(responseCode = "200", description = "request was successful")
+    @ApiResponse(responseCode = "400", description = "bad request")
+    @ApiResponse(responseCode = "401", description = "forbidden")
+    @ApiResponse(responseCode = "404", description = "not found")
+    ResponseEntity<Integer> getValueByMetric(
+            @PathVariable("type") @Parameter(description = "The metric type") @NotNull String metricType,
+            @RequestParam("queryType") @Parameter(description = "The query type") @NotNull String queryType,
+            @RequestParam("from") @Parameter(description = "Start of date range") @NotNull @DateTimeFormat(iso = ISO.DATE) LocalDate from,
+            @RequestParam("to") @Parameter(description = "End of date range") @NotNull @DateTimeFormat(iso = ISO.DATE) LocalDate to) {
+        LOG.debug("Get request received for {} {} for all sensors", queryType, metricType);
         return ResponseEntity.ok(sensorReadingService.getMetricAverage(metricType, from, to));
     }
 
     @DeleteMapping("/{id}")
     @Secured({"ROLE_ADMIN"})
-    ResponseEntity<SensorReading> deleteById(@PathVariable("id") @NotNull Long id) {
-        LOG.debug("delete request received for sensor reading {}", id);
+    @Operation(summary = "Delete a sensor reading", description = "Deletes a specific sensor reading")
+    @ApiResponse(responseCode = "204", description = "request was successful")
+    @ApiResponse(responseCode = "400", description = "bad request")
+    @ApiResponse(responseCode = "401", description = "forbidden")
+    ResponseEntity<SensorReading> deleteById(
+            @PathVariable("id") @Parameter(description = "The id of the sensor reading") @NotNull Long id) {
+        LOG.debug("Delete request received for sensor reading {}", id);
         sensorReadingService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
