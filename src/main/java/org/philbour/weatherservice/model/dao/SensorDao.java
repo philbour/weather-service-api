@@ -31,10 +31,6 @@ public class SensorDao {
         this.location = location;
     }
 
-    /*
-     * public SensorDao(Sensor sensor) { this.location = sensor.getLocation(); }
-     */
-
     public Long getId() {
         return id;
     }

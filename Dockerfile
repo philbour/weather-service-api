@@ -1,5 +1,7 @@
 FROM eclipse-temurin:11-jre-alpine
 
+VOLUME ./data
+
 ARG JAR_FILE
 
 COPY ${JAR_FILE} weather-service-api.jar

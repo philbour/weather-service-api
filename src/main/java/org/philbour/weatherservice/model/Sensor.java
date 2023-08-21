@@ -13,10 +13,6 @@ public class Sensor {
     public Sensor() {
     }
 
-    /*
-     * public Sensor(String location) { this.location = location; }
-     */
-
     @JsonCreator
     public Sensor(@JsonProperty("id") Long id, @JsonProperty("location") String location) {
         this.id = id;

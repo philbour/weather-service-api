@@ -29,10 +29,6 @@ public class MetricDao {
         this.metricType = metricType;
     }
 
-    /*
-     * public MetricDao(Metric metric) { this.id = metric.getId(); this.metricType = metric.getMetricType(); }
-     */
-
     public Long getId() {
         return id;
     }
