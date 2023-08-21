@@ -1,7 +1,6 @@
 package org.philbour.weatherservice.controller;
 
 import org.philbour.weatherservice.model.Metric;
-import org.philbour.weatherservice.model.dao.MetricDao;
 import org.philbour.weatherservice.model.resource.MetricResource;
 import org.philbour.weatherservice.service.MetricService;
 import org.slf4j.Logger;
@@ -38,28 +37,28 @@ public class MetricController {
     private MetricService metricService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<MetricDao> register(@Valid @RequestBody MetricResource metricResource) {
+    ResponseEntity<Metric> register(@Valid @RequestBody MetricResource metricResource) {
         LOG.debug("register request received for new metric for type {}", metricResource.getMetricType());
-        MetricDao metric = metricService.register(new Metric(metricResource.getMetricType()));
+        Metric metric = metricService.register(metricResource);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(metric.getId()).toUri();
         return ResponseEntity.created(uri).body(metric);
     }
 
     @GetMapping
-    ResponseEntity<List<MetricDao>> getAll() {
+    ResponseEntity<List<Metric>> getAll() {
         LOG.debug("get request received for all metrics");
         return ResponseEntity.ok(metricService.getAll());
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<MetricDao> getById(@PathVariable("id") @NotNull Long id) {
+    ResponseEntity<Metric> getById(@PathVariable("id") @NotNull Long id) {
         LOG.debug("get request received for metric {}", id);
         return ResponseEntity.of(metricService.getById(id));
     }
 
     @DeleteMapping("/{id}")
     @Secured({"ROLE_ADMIN"})
-    ResponseEntity<MetricDao> deleteById(@PathVariable("id") @NotNull Long id) {
+    ResponseEntity<Metric> deleteById(@PathVariable("id") @NotNull Long id) {
         LOG.debug("delete request received for metric {}", id);
         metricService.deleteById(id);
         return ResponseEntity.noContent().build();

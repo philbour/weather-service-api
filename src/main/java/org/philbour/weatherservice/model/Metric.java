@@ -1,5 +1,7 @@
 package org.philbour.weatherservice.model;
 
+import org.philbour.weatherservice.model.dao.MetricDao;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -19,6 +21,11 @@ public class Metric {
     public Metric(@JsonProperty("id") Long id, @JsonProperty("metricType") String metricType) {
         this.id = id;
         this.metricType = metricType;
+    }
+
+    public Metric(MetricDao metricDao) {
+        this.id = metricDao.getId();
+        this.metricType = metricDao.getMetricType();
     }
 
     public Long getId() {

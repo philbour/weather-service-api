@@ -20,6 +20,10 @@ public class BasicAuthWebSecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        /**
+         * allow anyone to access the docs or the h2 console, but all other requests must be authenticated (basic auth).
+         * csrf is disabled to allow POST, PUT, DELETE etc..., frameOptions is disabled to be able to view h2 console
+         */
         return http.authorizeRequests()
                 .antMatchers("/docs/**", "/h2-console/**")
                 .permitAll()

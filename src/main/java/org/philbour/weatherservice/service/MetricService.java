@@ -1,16 +1,18 @@
 package org.philbour.weatherservice.service;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.philbour.weatherservice.model.Metric;
 import org.philbour.weatherservice.model.dao.MetricDao;
+import org.philbour.weatherservice.model.resource.MetricResource;
 import org.philbour.weatherservice.repository.MetricRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
-import javax.validation.constraints.NotNull;
+import java.util.stream.Collectors;
 
 @Service
 public class MetricService {
@@ -23,20 +25,30 @@ public class MetricService {
         this.metricRepository = metricRepository;
     }
 
-    public MetricDao register(@NotNull Metric metric) {
+    public Metric register(MetricResource metricResource) {
         LOG.debug("Saving new metric");
-        return metricRepository.save(new MetricDao(metric));
+        return new Metric(metricRepository.save(new MetricDao(metricResource.getMetricType())));
     }
 
-    public List<MetricDao> getAll() {
-        return metricRepository.findAll();
+    public List<Metric> getAll() {
+        LOG.debug("Getting all metrics");
+        List<MetricDao> metrics = metricRepository.findAll();
+
+        if (CollectionUtils.isNotEmpty(metrics)) {
+            return metrics.stream().map(Metric::new).collect(Collectors.toList());
+        }
+
+        return Collections.emptyList();
     }
 
-    public Optional<MetricDao> getById(@NotNull Long id) {
-        return metricRepository.findById(id);
+    public Optional<Metric> getById(Long id) {
+        LOG.debug("Getting metric {}", id);
+        Optional<MetricDao> optional = metricRepository.findById(id);
+        return optional.isPresent() ? Optional.of(new Metric(optional.get())) : Optional.empty();
     }
 
-    public void deleteById(@NotNull Long id) {
+    public void deleteById(Long id) {
+        LOG.debug("Deleting metric {}", id);
         MetricDao metric = metricRepository.getReferenceById(id);
         metricRepository.delete(metric);
     }

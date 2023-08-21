@@ -16,20 +16,40 @@ public class MetricValueDao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private final Long id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sensor_reading_id", referencedColumnName = "id")
-    private final SensorReadingDao sensorReading;
+    private SensorReadingDao sensorReading;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "metric_id")
-    private final MetricDao metric;
+    private MetricDao metric;
 
-    private final int metricValue;
+    private int metricValue;
+
+    public MetricValueDao() {
+    }
+
+    public MetricValueDao(MetricDao metric, int metricValue) {
+        this.metric = metric;
+        this.metricValue = metricValue;
+    }
+
+    public MetricValueDao(SensorReadingDao sensorReading, MetricDao metric, int metricValue) {
+        this.sensorReading = sensorReading;
+        this.metric = metric;
+        this.metricValue = metricValue;
+    }
 
     public MetricValueDao(Long id, SensorReadingDao sensorReading, MetricDao metric, int metricValue) {
         this.id = id;
+        this.sensorReading = sensorReading;
+        this.metric = metric;
+        this.metricValue = metricValue;
+    }
+
+    public MetricValueDao(MetricDao metric, SensorReadingDao sensorReading, int metricValue) {
         this.sensorReading = sensorReading;
         this.metric = metric;
         this.metricValue = metricValue;
