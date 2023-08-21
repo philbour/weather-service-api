@@ -78,10 +78,10 @@ class SensorReadingControllerTest {
 
     private SensorReadingResource createReading(LocalDateTime readingDate) {
         List<MetricValue> metrics = new ArrayList<>();
-        metrics.add(new MetricValue("tmp", 22));
-        metrics.add(new MetricValue("wnd", 15));
-        metrics.add(new MetricValue("hum", 64));
-        metrics.add(new MetricValue("air", 1016));
+        metrics.add(new MetricValue(1L, 22));
+        metrics.add(new MetricValue(2L, 15));
+        metrics.add(new MetricValue(3L, 64));
+        metrics.add(new MetricValue(4L, 1016));
 
         return new SensorReadingResource(1L, readingDate, metrics);
     }

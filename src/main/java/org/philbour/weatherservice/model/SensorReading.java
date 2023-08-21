@@ -1,5 +1,6 @@
 package org.philbour.weatherservice.model;
 
+import org.philbour.weatherservice.model.dao.SensorReadingDao;
 import org.philbour.weatherservice.model.resource.SensorReadingResource;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SensorReading {
 
@@ -36,6 +38,13 @@ public class SensorReading {
         this.sensorId = sensor.getId();
         this.timeOfReading = timeOfReading;
         this.metrics = metrics;
+    }
+
+    public SensorReading(SensorReadingDao reading) {
+        this.id = reading.getId();
+        this.sensorId = reading.getSensor().getId();
+        this.timeOfReading = reading.getTimeOfReading();
+        this.metrics = reading.getMetrics().stream().map(MetricValue::new).collect(Collectors.toList());
     }
 
     public Long getId() {
