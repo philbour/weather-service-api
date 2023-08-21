@@ -1,8 +1,54 @@
-# weather-service-api
-REST API service for registering and quering weather data
+weather-service-api
+========
 
-# run
-`docker run -p 8080:8080 weather-service-api:0.0.1-SNAPSHOT`
+![](logo.png)
 
-# access
-localhost:8080/metric/temperature?from=2023-08-17&to=2023-08-17
+# Intro
+REST API service for registering and querying weather sensor data.
+
+# Features
+
+* CRUD (Create, Read, Delete) operations for metrics, sensors, and sensor readings
+* Data written to Database
+* Can be execute as a stand-alone Spring boot app or run within a Docker container
+* Data persisted across restarts of service or container
+* Custom queries to get average values of certain metrics
+* New Metrics and Sensors can be easily added
+
+# Limitations
+
+* No updates
+
+# Future
+
+* Allow a resource (Metric, Sensor) to be updated
+* Additional queries (min, max, etc...)
+
+# Execute
+
+Can be run in 2 ways - 
+## Stand-alone Spring boot
+
+### Steps
+
+1. Clone repo
+2. Run with IDE or on cli
+    1. Import into IDE
+        1. Within the IDE, run as Spring Boot App
+    2. Run from command line
+        1. Build project
+        2. Execute `java -jar weather-service.jar`
+
+## Docker
+
+### Steps
+
+1. Clone repo
+2. Run maven install -  `mvn clean install`. This will build the jar and also the docker image
+3. From the command line run - `docker run -v /data:/data -p 8080:8080 weather-service-api:0.0.1-SNAPSHOT`
+
+
+# View
+
+To view all sensors for example browse to - 
+[localhost:8080/weatherservice/api/sensor](http://localhost:8080/weatherservice/api/sensor)
