@@ -34,11 +34,10 @@ public class SensorReading {
         this.metrics = new ArrayList<>(reading.getMetrics());
     }
 
-    public SensorReading(Sensor sensor, LocalDateTime timeOfReading, List<MetricValue> metrics) {
-        this.sensorId = sensor.getId();
-        this.timeOfReading = timeOfReading;
-        this.metrics = metrics;
-    }
+    /*
+     * public SensorReading(Sensor sensor, LocalDateTime timeOfReading, List<MetricValue> metrics) { this.sensorId =
+     * sensor.getId(); this.timeOfReading = timeOfReading; this.metrics = metrics; }
+     */
 
     public SensorReading(SensorReadingDao reading) {
         this.id = reading.getId();

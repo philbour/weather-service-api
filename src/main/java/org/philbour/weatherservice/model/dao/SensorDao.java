@@ -1,7 +1,5 @@
 package org.philbour.weatherservice.model.dao;
 
-import org.philbour.weatherservice.model.Sensor;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -33,9 +31,9 @@ public class SensorDao {
         this.location = location;
     }
 
-    public SensorDao(Sensor sensor) {
-        this.location = sensor.getLocation();
-    }
+    /*
+     * public SensorDao(Sensor sensor) { this.location = sensor.getLocation(); }
+     */
 
     public Long getId() {
         return id;

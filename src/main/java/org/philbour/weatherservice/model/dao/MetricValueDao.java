@@ -31,23 +31,13 @@ public class MetricValueDao {
     public MetricValueDao() {
     }
 
-    public MetricValueDao(MetricDao metric, int metricValue) {
-        this.metric = metric;
-        this.metricValue = metricValue;
-    }
-
-    public MetricValueDao(SensorReadingDao sensorReading, MetricDao metric, int metricValue) {
-        this.sensorReading = sensorReading;
-        this.metric = metric;
-        this.metricValue = metricValue;
-    }
-
-    public MetricValueDao(Long id, SensorReadingDao sensorReading, MetricDao metric, int metricValue) {
-        this.id = id;
-        this.sensorReading = sensorReading;
-        this.metric = metric;
-        this.metricValue = metricValue;
-    }
+    /*
+     * public MetricValueDao(MetricDao metric, int metricValue) { this.metric = metric; this.metricValue = metricValue;
+     * } public MetricValueDao(SensorReadingDao sensorReading, MetricDao metric, int metricValue) { this.sensorReading =
+     * sensorReading; this.metric = metric; this.metricValue = metricValue; } public MetricValueDao(Long id,
+     * SensorReadingDao sensorReading, MetricDao metric, int metricValue) { this.id = id; this.sensorReading =
+     * sensorReading; this.metric = metric; this.metricValue = metricValue; }
+     */
 
     public MetricValueDao(MetricDao metric, SensorReadingDao sensorReading, int metricValue) {
         this.sensorReading = sensorReading;

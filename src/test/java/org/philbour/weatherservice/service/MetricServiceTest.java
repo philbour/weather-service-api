@@ -1,11 +1,3 @@
-/*
- * Copyright Avaya Inc., All Rights Reserved. THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF Avaya Inc. The copyright
- * notice above does not evidence any actual or intended publication of such source code. Some third-party source code
- * components may have been modified from their original versions by Avaya Inc. The modifications are Copyright Avaya
- * Inc., All Rights Reserved. Avaya - Confidential & Restricted. May not be distributed further without written
- * permission of the Avaya owner.
- */
-
 package org.philbour.weatherservice.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,7 +37,7 @@ class MetricServiceTest {
     }
 
     @Test
-    void register_MetricsFound_ReturnsSavedMetric() {
+    void register_MetricSaved_ReturnsSavedMetric() {
         when(mockMetricRepository.save(isA(MetricDao.class))).thenReturn(new MetricDao(TEMPERATURE_TYPE));
 
         Metric metric = metricService.register(new MetricResource(TEMPERATURE_TYPE));
@@ -81,7 +73,7 @@ class MetricServiceTest {
     }
 
     @Test
-    void getById_MetricFound_ReturnsEmpty() {
+    void getById_MetricNotFound_ReturnsEmpty() {
         when(mockMetricRepository.findById(ID)).thenReturn(Optional.empty());
 
         Optional<Metric> metric = metricService.getById(ID);

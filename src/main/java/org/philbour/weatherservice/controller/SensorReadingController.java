@@ -43,7 +43,7 @@ public class SensorReadingController {
     @PostMapping
     ResponseEntity<SensorReading> register(@Valid @RequestBody SensorReadingResource reading) {
         LOG.debug("register request received for sensor {} reading", reading.getSensorId());
-        SensorReading sensorReading = sensorReadingService.register(new SensorReading(reading));
+        SensorReading sensorReading = sensorReadingService.register(reading);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(sensorReading.getId())

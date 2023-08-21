@@ -30,7 +30,7 @@ public class SensorReadingDao {
     private LocalDateTime timeOfReading;
 
     @OneToMany(mappedBy = "sensorReading", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<MetricValueDao> metrics = new ArrayList<>();
+    private final List<MetricValueDao> metrics = new ArrayList<>();
 
     public SensorReadingDao() {
     }
@@ -46,18 +46,12 @@ public class SensorReadingDao {
         this.timeOfReading = timeOfReading;
     }
 
-    public SensorReadingDao(SensorDao sensor, LocalDateTime timeOfReading, List<MetricValueDao> metrics) {
-        this.sensor = sensor;
-        this.timeOfReading = timeOfReading;
-        this.metrics.addAll(metrics);
-    }
-
-    public SensorReadingDao(Long id, SensorDao sensor, LocalDateTime timeOfReading, List<MetricValueDao> metrics) {
-        this.id = id;
-        this.sensor = sensor;
-        this.timeOfReading = timeOfReading;
-        this.metrics.addAll(metrics);
-    }
+    /*
+     * public SensorReadingDao(SensorDao sensor, LocalDateTime timeOfReading, List<MetricValueDao> metrics) {
+     * this.sensor = sensor; this.timeOfReading = timeOfReading; this.metrics.addAll(metrics); } public
+     * SensorReadingDao(Long id, SensorDao sensor, LocalDateTime timeOfReading, List<MetricValueDao> metrics) { this.id
+     * = id; this.sensor = sensor; this.timeOfReading = timeOfReading; this.metrics.addAll(metrics); }
+     */
 
     public Long getId() {
         return id;
@@ -75,21 +69,11 @@ public class SensorReadingDao {
         return metrics;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setSensor(SensorDao sensor) {
-        this.sensor = sensor;
-    }
-
-    public void setTimeOfReading(LocalDateTime timeOfReading) {
-        this.timeOfReading = timeOfReading;
-    }
-
-    public void setMetrics(List<MetricValueDao> metrics) {
-        this.metrics = metrics;
-    }
+    /*
+     * public void setId(Long id) { this.id = id; } public void setSensor(SensorDao sensor) { this.sensor = sensor; }
+     * public void setTimeOfReading(LocalDateTime timeOfReading) { this.timeOfReading = timeOfReading; } public void
+     * setMetrics(List<MetricValueDao> metrics) { this.metrics = metrics; }
+     */
 
     public void addMetricValue(MetricValueDao metricValue) {
         metrics.add(metricValue);

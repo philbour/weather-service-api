@@ -7,6 +7,7 @@ import org.philbour.weatherservice.model.dao.MetricDao;
 import org.philbour.weatherservice.model.dao.MetricValueDao;
 import org.philbour.weatherservice.model.dao.SensorDao;
 import org.philbour.weatherservice.model.dao.SensorReadingDao;
+import org.philbour.weatherservice.model.resource.SensorReadingResource;
 import org.philbour.weatherservice.repository.MetricRepository;
 import org.philbour.weatherservice.repository.SensorReadingRepository;
 import org.philbour.weatherservice.repository.SensorRepository;
@@ -37,13 +38,13 @@ public class SensorReadingService {
         this.metricRepository = metricRepository;
     }
 
-    public SensorReading register(SensorReading sensorReading) {
+    public SensorReading register(SensorReadingResource reading) {
         LOG.debug("Saving new sensor reading");
-        SensorDao sensor = sensorRepository.getReferenceById(sensorReading.getSensorId());
+        SensorDao sensor = sensorRepository.getReferenceById(reading.getSensorId());
 
-        SensorReadingDao readingToSave = new SensorReadingDao(sensor, sensorReading.getTimeOfReading());
+        SensorReadingDao readingToSave = new SensorReadingDao(sensor, reading.getTimeOfReading());
 
-        List<MetricValueDao> metricValuesToSave = convert(sensorReading.getMetrics(), readingToSave);
+        List<MetricValueDao> metricValuesToSave = convert(reading.getMetrics(), readingToSave);
         metricValuesToSave.forEach(readingToSave::addMetricValue);
 
         SensorReadingDao sensorReadingDao = sensorReadingRepository.save(readingToSave);

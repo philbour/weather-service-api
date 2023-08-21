@@ -1,7 +1,5 @@
 package org.philbour.weatherservice.model.dao;
 
-import org.philbour.weatherservice.model.Metric;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,10 +29,9 @@ public class MetricDao {
         this.metricType = metricType;
     }
 
-    public MetricDao(Metric metric) {
-        this.id = metric.getId();
-        this.metricType = metric.getMetricType();
-    }
+    /*
+     * public MetricDao(Metric metric) { this.id = metric.getId(); this.metricType = metric.getMetricType(); }
+     */
 
     public Long getId() {
         return id;
