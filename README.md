@@ -20,9 +20,19 @@ REST API service for registering and querying weather sensor data.
 * The ability to update a resource currently not supported
 * All metric values are stored as integers without specifying the unit type e.g. degrees, kph, mbar
 
+# Known Issues
+
+* This has only been tested on a Windows environment. There is an issue if using WSL. A volume mounted using Windows cmd will not
+  be the same volume if mounted using git bash.
+
+# Prerequisites
+
+1. Docker is installed
+2. Minimum version of Java required is 11
+
 # Execute
 
-Can be run in 2 ways - 
+Can be run in 2 flavours - 
 ## Stand-alone Spring boot
 
 ### Steps
@@ -33,7 +43,8 @@ Can be run in 2 ways -
         1. Within the IDE, run as Spring Boot App
     2. Run from command line
         1. Build project `mvn clean install -Ddockerfile.skip`
-        2. Execute `java -jar weather-service.jar`
+        2. From the */target* folder, execute `java -jar weather-service-api-0.0.1-SNAPSHOT.jar`
+    3. Just use the pre-built jar in the */test* folder in the repo using the same command in the previous step
 
 ## Docker
 
