@@ -24,6 +24,9 @@ REST API service for registering and querying weather sensor data.
 
 * This has only been tested on a Windows environment. There is an issue if using WSL. A volume mounted using Windows cmd will not
   be the same volume if mounted using git bash.
+* Another WSL related issue, is that there is a bug in WSL where the time can get out of sync with the Windows host machine. This
+  means that a request sent from the host machine may have a time slighty later than the time used by WSL. This can cause the request
+  to be rejected as it may fail the *PastOrPresent* time validation. See [https://github.com/microsoft/WSL/issues/10006](https://github.com/microsoft/WSL/issues/10006)
 
 # Prerequisites
 
