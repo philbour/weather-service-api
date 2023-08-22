@@ -18,6 +18,7 @@ REST API service for registering and querying weather sensor data.
 # Limitations 
 
 * The ability to update a resource currently not supported
+* All metric values are stored as integers without specifying the unit type e.g. degrees, kph, mbar
 
 # Execute
 
@@ -44,12 +45,12 @@ Can be run in 2 ways -
 
 # Usage
 
-To view all sensors for example browse to - 
+To view all sensors for example, browse to - 
 [localhost:8080/weatherservice/api/sensor](http://localhost:8080/weatherservice/api/sensor)
 
 ## Authentication
 
-All endpoints are secured using basic auth. Delete endpoints required the ADMIN role
+All endpoints are secured using basic auth. Delete endpoints require the ADMIN role
 
 | Role       | Username  | Password      |
 | ---------- | --------- | ------------- |
@@ -64,6 +65,44 @@ Swagger docs available at [http://localhost:8080/weatherservice/api/docs/swagger
 
 # Examples
 
+*Authorization* header using Basic auth must be set for all requests. Refer to table above for auth details.
+
+## Get all sensors
+GET localhost:8080/weatherservice/api/sensor
+
+## Get a specific metric
+GET localhost:8080/weatherservice/api/metric/1
+
+## Delete a sensor
+DELETE localhost:8080/weatherservice/api/sensor/1
+
+## Create a sensor
+POST localhost:8080/weatherservice/api/sensor
+{
+    "location": "downtown"
+}
+
+## Create a metric
+POST localhost:8080/weatherservice/api/metric
+{
+    "metricType": "temperature"
+}
+
+## Create a sensor reading
+
+For this request to succeed, the sensor and metric referred to by sensorId and metricId respectively, must already exist.
+
+POST localhost:8080/weatherservice/api/reading
+{
+    "sensorId": 1,
+    "timeOfReading": "2023-08-22T18:22:06",
+    "metrics": [
+        {
+            "metricId": 1,
+            "metricValue": 15
+        }
+    ]
+}
 
 # Future
 
@@ -73,5 +112,8 @@ Swagger docs available at [http://localhost:8080/weatherservice/api/docs/swagger
 * Caching
 * Integration tests
 * Better logging
-* Better API doces
+* Better API docs
 * Proper Auth using a token
+* Transaction support
+* Proper location for a sensor using co-ordinates
+* Support for metric units such as kph, degrees, mbar

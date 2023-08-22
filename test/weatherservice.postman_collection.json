@@ -7,14 +7,451 @@
 	},
 	"item": [
 		{
-			"name": "Register",
-			"item": []
-		},
-		{
-			"name": "Query",
+			"name": "Sensor",
 			"item": [
 				{
-					"name": "query",
+					"name": "register",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "letmein",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"location\": \"a_location\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/weatherservice/api/sensor",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"weatherservice",
+								"api",
+								"sensor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "letmein",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/weatherservice/api/sensor",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"weatherservice",
+								"api",
+								"sensor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "letmein",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/weatherservice/api/sensor/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"weatherservice",
+								"api",
+								"sensor",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "imtheboss",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/weatherservice/api/sensor/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"weatherservice",
+								"api",
+								"sensor",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "metric",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "letmein",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"metricType\": \"pressure\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/weatherservice/api/metric",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"weatherservice",
+								"api",
+								"metric"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "letmein",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/weatherservice/api/metric",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"weatherservice",
+								"api",
+								"metric"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "letmein",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/weatherservice/api/metric/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"weatherservice",
+								"api",
+								"metric",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SensorReading",
+			"item": [
+				{
+					"name": "register",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const  moment = require('moment');\r",
+									"\r",
+									"var today = moment().utc().subtract(1,'minutes');\r",
+									"pm.globals.set(\"now\", today.format('YYYY-MM-DDTHH:mm:ss'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "letmein",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sensorId\": 1,\r\n    \"timeOfReading\": \"{{now}}\",\r\n    \"metrics\": [\r\n        {\r\n            \"metricId\": 1,\r\n            \"metricValue\": 14\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/weatherservice/api/reading",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"weatherservice",
+								"api",
+								"reading"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "letmein",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/weatherservice/api/reading",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"weatherservice",
+								"api",
+								"reading"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSensorAverageByMetric",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -26,28 +463,143 @@
 									"pm.globals.set(\"today\", today.format('YYYY-MM-DD'));\r",
 									"\r",
 									"var yesterday = moment().subtract(1, 'days');\r",
-									"pm.globals.set(\"yesterday\", yesterday.format('YYYY-MM-DD'));\r",
-									"\r",
-									"//pm.environment.set('now', moment().format((\"YYYY-MM-DD\")));"
+									"pm.globals.set(\"yesterday\", yesterday.format('YYYY-MM-DD'));"
 								],
 								"type": "text/javascript"
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "letmein",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "localhost:8080/metric/temperature?from={{yesterday}}&to={{today}}",
+							"raw": "localhost:8080/weatherservice/api/reading/sensor/3/metric/temperature?queryType=avg&from={{yesterday}}&to={{today}}",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"weatherservice",
+								"api",
+								"reading",
+								"sensor",
+								"3",
 								"metric",
 								"temperature"
 							],
 							"query": [
+								{
+									"key": "queryType",
+									"value": "avg"
+								},
+								{
+									"key": "from",
+									"value": "{{yesterday}}"
+								},
+								{
+									"key": "to",
+									"value": "{{today}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAverageByMetric",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const  moment = require('moment');\r",
+									"\r",
+									"const today = moment();\r",
+									"pm.globals.set(\"today\", today.format('YYYY-MM-DD'));\r",
+									"\r",
+									"var yesterday = moment().subtract(1, 'days');\r",
+									"pm.globals.set(\"yesterday\", yesterday.format('YYYY-MM-DD'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "letmein",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/weatherservice/api/reading/sensor/metric/pressure?queryType=avg&from={{yesterday}}&to={{today}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"weatherservice",
+								"api",
+								"reading",
+								"sensor",
+								"metric",
+								"pressure"
+							],
+							"query": [
+								{
+									"key": "queryType",
+									"value": "avg"
+								},
 								{
 									"key": "from",
 									"value": "{{yesterday}}"
