@@ -50,7 +50,7 @@ To view all sensors for example, browse to -
 
 ## Authentication
 
-All endpoints are secured using basic auth. Delete endpoints require the ADMIN role
+All endpoints are secured using basic auth. Delete endpoints require the **ADMIN** role
 
 | Role       | Username  | Password      |
 | ---------- | --------- | ------------- |
@@ -65,7 +65,9 @@ Swagger docs available at [http://localhost:8080/weatherservice/api/docs/swagger
 
 # Examples
 
-*Authorization* header using Basic auth must be set for all requests. Refer to table above for auth details.
+**Authorization** header using Basic auth must be set for all requests. Refer to table above for auth details.
+
+To test all endpoints use the postman collection in the *test* folder.
 
 ## Get all sensors
 GET localhost:8080/weatherservice/api/sensor
@@ -78,21 +80,26 @@ DELETE localhost:8080/weatherservice/api/sensor/1
 
 ## Create a sensor
 POST localhost:8080/weatherservice/api/sensor
+```json
 {
     "location": "downtown"
 }
+```
 
 ## Create a metric
 POST localhost:8080/weatherservice/api/metric
+```json
 {
     "metricType": "temperature"
 }
+```
 
 ## Create a sensor reading
 
-For this request to succeed, the sensor and metric referred to by sensorId and metricId respectively, must already exist.
+For this request to succeed, the sensor and metric referred to by *sensorId* and *metricId* respectively, must already exist.
 
 POST localhost:8080/weatherservice/api/reading
+```json
 {
     "sensorId": 1,
     "timeOfReading": "2023-08-22T18:22:06",
@@ -103,6 +110,7 @@ POST localhost:8080/weatherservice/api/reading
         }
     ]
 }
+```
 
 # Future
 
@@ -115,5 +123,5 @@ POST localhost:8080/weatherservice/api/reading
 * Better API docs
 * Proper Auth using a token
 * Transaction support
-* Proper location for a sensor using co-ordinates
+* Proper location for a sensor using coordinates
 * Support for metric units such as kph, degrees, mbar
